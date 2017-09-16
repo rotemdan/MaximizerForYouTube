@@ -11,3 +11,8 @@ It:
 * Hides the thin red progress bar at the top of the page.
 
 There are no customization options at this time, but they may be added in the future.
+
+## Installation
+
+1. Make sure you have the [GreaseMonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) (Firefox) / [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) (Chrome) browser extension installed.
+2. Visit the [Greasyfork page](https://greasyfork.org/en/scripts/33243-maximizer-for-youtube) and click the 'Install this script' button.
