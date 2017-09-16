@@ -9,8 +9,10 @@ It:
 * Expands the video description.
 * Pauses any YouTube videos playing in background tabs whenever a video starts playing (embedded videos are not supported at this time).
 * Hides the thin red progress bar at the top of the page.
+* Automatically gives the player keyboard focus when the page is scrolled to the top, to allow for keyboard controls.
+* Adds the keyboard shortcuts ctrl-left and ctrl-right for 'previous video' and 'next video' respectively.
 
-There are no customization options at this time, but they may be added in the future.
+There are no customization options at this time, but some may be added in the future.
 
 ## Installation
 
