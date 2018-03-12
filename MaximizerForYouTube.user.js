@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.1.2
+// @version     0.1.3
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -330,7 +330,7 @@ function topBarIsVisible() {
 }
 
 function inWatchPage() {
-	return location.href.indexOf("https://www.youtube.com/watch?") === 0 && window.self === window.top;
+	return location.href.indexOf("https://www.youtube.com/watch?") === 0;
 }
 
 function theaterModeEnabled() {
@@ -388,9 +388,11 @@ function onNavigation() {
 // Install event handlers and start script
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener('DOMContentLoaded', onDocumentEnd, false);
-$(window).on("load", onWindowLoad);
-$(window).on("yt-navigate-start", () => { log("yt-navigate-start"), onNavigation() });
-$(window).on("popstate", () => { log("popstate"); onNavigation() });
+if (window.self === window.top) {
+	document.addEventListener('DOMContentLoaded', onDocumentEnd, false);
+	$(window).on("load", onWindowLoad);
+	$(window).on("yt-navigate-start", () => { log("yt-navigate-start"), onNavigation() });
+	$(window).on("popstate", () => { log("popstate"); onNavigation() });
 
-onDocumentStart();
+	onDocumentStart();
+}
