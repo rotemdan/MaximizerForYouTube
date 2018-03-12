@@ -11,7 +11,7 @@ It:
 * Hides the thin red progress bar at the top of the page.
 * Automatically gives the player keyboard focus when the page is scrolled to the top, to allow for keyboard controls.
 * Adds the keyboard shortcuts ctrl-left and ctrl-right for 'previous video' and 'next video' respectively.
-* Substitutes the default scrollbar with a darker, thinner and less obtrusive one (webkit browsers only)
+* Substitutes the default scrollbar with a darker, thinner and less obtrusive one (WebKit browsers only)
 
 There are no customization options at this time, but some may be added in the future.
 

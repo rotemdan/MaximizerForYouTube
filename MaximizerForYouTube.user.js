@@ -63,39 +63,39 @@ function installOrUninstallPlayerModIfNeeded() {
 						body { margin-top: -56px !important; }
 
 						ytd-page-manager { margin-top: 0px !important; }
-						
+
 						#masthead-container { visibility: hidden; opacity: 0; transition: opacity 0.2s ease-in-out; }
-						
+
 						#movie_player { height: 100vh !important; }
-						
+
 						#player { max-height: 100vh !important; }
-						
+
 						:focus { outline: 0; }
-						
+
 						#movie_player { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-						
-						::-webkit-scrollbar {
+
+						body::-webkit-scrollbar {
 							width: 10px;
 							background-color: #000000;
 						}
-												
-						::-webkit-scrollbar-track {
+
+						body::-webkit-scrollbar-track {
 							border-radius: 10px;
 							background: rgba(0,0,0,0.1);
 							border: 1px solid #383838;
 						}
-						  
-						::-webkit-scrollbar-thumb {
+
+						body::-webkit-scrollbar-thumb {
 							border-radius: 10px;
 							background: linear-gradient(left, #fff, #e4e4e4);
 							border: 1px solid #5b5b5b;
 						}
-						  
-						::-webkit-scrollbar-thumb:hover {
+
+						body::-webkit-scrollbar-thumb:hover {
 							background: #fff;
 						}
-						  
-						::-webkit-scrollbar-thumb:active {
+
+						body::-webkit-scrollbar-thumb:active {
 							background: linear-gradient(left, #22ADD4, #1E98BA);
 						}
 					</style>`;
@@ -330,7 +330,7 @@ function topBarIsVisible() {
 }
 
 function inWatchPage() {
-	return location.href.indexOf("https://www.youtube.com/watch?") === 0;
+	return location.href.indexOf("https://www.youtube.com/watch?") === 0 && window.self === window.top;
 }
 
 function theaterModeEnabled() {
