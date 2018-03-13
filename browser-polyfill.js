@@ -11,7 +11,7 @@
     global.browser = mod.exports;
   }
 })(this, function (module) {
-  /* webextension-polyfill - v0.1.1 - Sat Aug 05 2017 10:49:22 */
+  /* webextension-polyfill - v0.2.1 - Tue Mar 13 2018 15:51:19 */
   /* -*- Mode: indent-tabs-mode: nil; js-indent-level: 2 -*- */
   /* vim: set sts=2 sw=2 et tw=80: */
   /* This Source Code Form is subject to the terms of the Mozilla Public
@@ -166,6 +166,21 @@
             "maxArgs": 1
           }
         },
+        "devtools": {
+          "inspectedWindow": {
+            "eval": {
+              "minArgs": 1,
+              "maxArgs": 2
+            }
+          },
+          "panels": {
+            "create": {
+              "minArgs": 3,
+              "maxArgs": 3,
+              "singleCallbackArg": true
+            }
+          }
+        },
         "downloads": {
           "download": {
             "minArgs": 1,
@@ -254,6 +269,12 @@
             "maxArgs": 0
           }
         },
+        "identity": {
+          "launchWebAuthFlow": {
+            "minArgs": 1,
+            "maxArgs": 1
+          }
+        },
         "idle": {
           "queryState": {
             "minArgs": 1,
@@ -305,21 +326,37 @@
             "minArgs": 1,
             "maxArgs": 1
           },
+          "setPopup": {
+            "minArgs": 1,
+            "maxArgs": 1,
+            "fallbackToNoCallback": true
+          },
           "getTitle": {
             "minArgs": 1,
             "maxArgs": 1
           },
+          "setTitle": {
+            "minArgs": 1,
+            "maxArgs": 1,
+            "fallbackToNoCallback": true
+          },
           "hide": {
-            "minArgs": 0,
-            "maxArgs": 0
+            "minArgs": 1,
+            "maxArgs": 1,
+            "fallbackToNoCallback": true
           },
           "setIcon": {
             "minArgs": 1,
             "maxArgs": 1
           },
+          "getIcon": {
+            "minArgs": 1,
+            "maxArgs": 1
+          },
           "show": {
-            "minArgs": 0,
-            "maxArgs": 0
+            "minArgs": 1,
+            "maxArgs": 1,
+            "fallbackToNoCallback": true
           }
         },
         "runtime": {
@@ -600,15 +637,20 @@
        *        The promise's resolution function.
        * @param {function} promise.rejection
        *        The promise's rejection function.
+       * @param {object} metadata
+       *        Metadata about the wrapped method which has created the callback.
+       * @param {integer} metadata.maxResolvedArgs
+       *        The maximum number of arguments which may be passed to the
+       *        callback created by the wrapped async function.
        *
        * @returns {function}
        *        The generated callback function.
        */
-      const makeCallback = promise => {
+      const makeCallback = (promise, metadata) => {
         return (...callbackArgs) => {
           if (chrome.runtime.lastError) {
             promise.reject(chrome.runtime.lastError);
-          } else if (callbackArgs.length === 1) {
+          } else if (metadata.singleCallbackArg || callbackArgs.length === 1) {
             promise.resolve(callbackArgs[0]);
           } else {
             promise.resolve(callbackArgs);
@@ -631,6 +673,9 @@
        *        The maximum number of arguments which may be passed to the
        *        function. If called with more than this number of arguments, the
        *        wrapper will raise an exception.
+       * @param {integer} metadata.maxResolvedArgs
+       *        The maximum number of arguments which may be passed to the
+       *        callback created by the wrapped async function.
        *
        * @returns {function(object, ...*)}
        *       The generated wrapper function.
@@ -648,7 +693,30 @@
           }
 
           return new Promise((resolve, reject) => {
-            target[name](...args, makeCallback({ resolve, reject }));
+            if (metadata.fallbackToNoCallback) {
+              // This API method has currently no callback on Chrome, but it return a promise on Firefox,
+              // and so the polyfill will try to call it with a callback first, and it will fallback
+              // to not passing the callback if the first call fails.
+              try {
+                target[name](...args, makeCallback({ resolve, reject }, metadata));
+              } catch (cbError) {
+                console.warn(`${name} API method doesn't seem to support the callback parameter, ` + "falling back to call it without a callback: ", cbError);
+
+                target[name](...args);
+
+                // Update the API method metadata, so that the next API calls will not try to
+                // use the unsupported callback anymore.
+                metadata.fallbackToNoCallback = false;
+                metadata.noCallback = true;
+
+                resolve();
+              }
+            } else if (metadata.noCallback) {
+              target[name](...args);
+              resolve();
+            } else {
+              target[name](...args, makeCallback({ resolve, reject }, metadata));
+            }
           });
         };
       };
@@ -707,13 +775,12 @@
        */
       const wrapObject = (target, wrappers = {}, metadata = {}) => {
         let cache = Object.create(null);
-
         let handlers = {
-          has(target, prop) {
+          has(proxyTarget, prop) {
             return prop in target || prop in cache;
           },
 
-          get(target, prop, receiver) {
+          get(proxyTarget, prop, receiver) {
             if (prop in cache) {
               return cache[prop];
             }
@@ -767,7 +834,7 @@
             return value;
           },
 
-          set(target, prop, value, receiver) {
+          set(proxyTarget, prop, value, receiver) {
             if (prop in cache) {
               cache[prop] = value;
             } else {
@@ -776,16 +843,27 @@
             return true;
           },
 
-          defineProperty(target, prop, desc) {
+          defineProperty(proxyTarget, prop, desc) {
             return Reflect.defineProperty(cache, prop, desc);
           },
 
-          deleteProperty(target, prop) {
+          deleteProperty(proxyTarget, prop) {
             return Reflect.deleteProperty(cache, prop);
           }
         };
 
-        return new Proxy(target, handlers);
+        // Per contract of the Proxy API, the "get" proxy handler must return the
+        // original value of the target if that value is declared read-only and
+        // non-configurable. For this reason, we create an object with the
+        // prototype set to `target` instead of using `target` directly.
+        // Otherwise we cannot return a custom object for APIs that
+        // are declared read-only and non-configurable, such as `chrome.devtools`.
+        //
+        // The proxy handlers themselves will still use the original `target`
+        // instead of the `proxyTarget`, so that the methods and properties are
+        // dereferenced via the original targets.
+        let proxyTarget = Object.create(target);
+        return new Proxy(proxyTarget, handlers);
       };
 
       /**
