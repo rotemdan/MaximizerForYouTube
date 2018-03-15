@@ -4,7 +4,7 @@ This browser extension modifies YouTube's player to fill the entire browser view
 
 It:
 
-* Hides the top bar and surrounding empty space to maximize the player size.
+* Hides the top bar and surrounding empty space to maximize the player size when in theater mode.
 * Shows the top bar whenever the page isn't scrolled all the way to the top. The top bar can also be toggled with the escape key, which would also cause the search box to automatically receive focus.
 * Expands the video description.
 * Pauses any YouTube videos playing in background tabs whenever a video starts playing (embedded videos are not supported at this time).
@@ -17,10 +17,10 @@ There are no customization options at this time, but some may be added in the fu
 
 ## Installation as a browser extension
 
-Chrome: available soon
-Firefox: available soon
+Chrome: coming soon.
+Firefox: [Install through the Mozilla add-on site](https://addons.mozilla.org/en-US/firefox/addon/maximizer-for-youtube/).
 
 ## Installation as a userscript
 
-1. Make sure you have the [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) (Firefox) or [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) (Chrome) browser extension installed.
+1. Make sure you have the [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) (Firefox) or [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) (Chrome/Firefox) browser extension installed.
 2. Visit the [Greasyfork page](https://greasyfork.org/en/scripts/33243-maximizer-for-youtube) and click the 'Install this script' button.
