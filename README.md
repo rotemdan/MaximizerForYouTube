@@ -15,6 +15,8 @@ It:
 
 There are no customization options at this time, but some may be added in the future.
 
+_Note the extension only supports YouTube's newer "Material Design" layout._
+
 ## Installation as a browser extension
 
 Chrome: coming soon.
