@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.1.4
+// @version     0.1.5
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
