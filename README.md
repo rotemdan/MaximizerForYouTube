@@ -19,8 +19,8 @@ _Note the extension only supports YouTube's newer "Material Design" layout._
 
 ## Installation as a browser extension
 
-Chrome: coming soon.
-Firefox: [Install through the Mozilla add-on site](https://addons.mozilla.org/en-US/firefox/addon/maximizer-for-youtube/).
+* Chrome: coming soon.
+* Firefox: [Install through the Mozilla add-on site](https://addons.mozilla.org/en-US/firefox/addon/maximizer-for-youtube/).
 
 ## Installation as a userscript
 
