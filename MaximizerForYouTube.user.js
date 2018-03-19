@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.1.5
+// @version     0.1.6
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -84,10 +84,6 @@ function installOrUninstallPlayerModIfNeeded() {
 
 						body::-webkit-scrollbar-thumb:hover {
 							background: #fff;
-						}
-
-						body::-webkit-scrollbar-thumb:active {
-							background: linear-gradient(left, #22ADD4, #1E98BA);
 						}
 					</style>`;
 

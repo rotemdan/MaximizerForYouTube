@@ -15,7 +15,7 @@
 				"https://www.youtube.com/*"
 			],
 			"js": [
-				"browser-polyfill.js",
+				"browser-polyfill.min.js",
 				"MaximizerForYouTube.user.js"
 			],
 			"run_at": "document_start"
