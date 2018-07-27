@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Maximizer For YouTube™",
-	"version": "0.1.5",
+	"version": "0.2.0",
 	"description": "Maximizes the YouTube player to fill the entire browser viewport when in theater mode, plus a few other enhancements.",
 	"icons": {
 		"48": "icons/icon-48.png",
@@ -15,7 +15,9 @@
 				"https://www.youtube.com/*"
 			],
 			"js": [
-				"browser-polyfill.min.js",
+				"browser-polyfill.js",
+				"jquery.slim.js",
+				"js-cookie.js",
 				"MaximizerForYouTube.user.js"
 			],
 			"run_at": "document_start"
