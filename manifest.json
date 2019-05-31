@@ -16,7 +16,7 @@
 			],
 			"js": [
 				"browser-polyfill.js",
-				"jquery-3.4.1.slim",
+				"jquery-3.4.1.slim.js",
 				"js-cookie.js",
 				"MaximizerForYouTube.user.js"
 			],
