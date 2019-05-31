@@ -5,7 +5,7 @@
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
  * Released under the MIT license
  */
-; (function (factory) {
+;(function (factory) {
 	var registeredInModuleLoader;
 	if (typeof define === 'function' && define.amd) {
 		define(factory);
@@ -24,11 +24,11 @@
 		};
 	}
 }(function () {
-	function extend() {
+	function extend () {
 		var i = 0;
 		var result = {};
 		for (; i < arguments.length; i++) {
-			var attributes = arguments[i];
+			var attributes = arguments[ i ];
 			for (var key in attributes) {
 				result[key] = attributes[key];
 			}
@@ -36,14 +36,14 @@
 		return result;
 	}
 
-	function decode(s) {
+	function decode (s) {
 		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
 	}
 
-	function init(converter) {
-		function api() { }
+	function init (converter) {
+		function api() {}
 
-		function set(key, value, attributes) {
+		function set (key, value, attributes) {
 			if (typeof document === 'undefined') {
 				return;
 			}
@@ -64,7 +64,7 @@
 				if (/^[\{\[]/.test(result)) {
 					value = result;
 				}
-			} catch (e) { }
+			} catch (e) {}
 
 			value = converter.write ?
 				converter.write(value, key) :
@@ -98,7 +98,7 @@
 			return (document.cookie = key + '=' + value + stringifiedAttributes);
 		}
 
-		function get(key, json) {
+		function get (key, json) {
 			if (typeof document === 'undefined') {
 				return;
 			}
@@ -125,7 +125,7 @@
 					if (json) {
 						try {
 							cookie = JSON.parse(cookie);
-						} catch (e) { }
+						} catch (e) {}
 					}
 
 					jar[name] = cookie;
@@ -133,7 +133,7 @@
 					if (key === name) {
 						break;
 					}
-				} catch (e) { }
+				} catch (e) {}
 			}
 
 			return key ? jar[key] : jar;
@@ -159,5 +159,5 @@
 		return api;
 	}
 
-	return init(function () { });
+	return init(function () {});
 }));
