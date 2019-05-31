@@ -17,7 +17,7 @@
 			"js": [
 				"browser-polyfill.js",
 				"jquery-3.4.1.slim.js",
-				"js-cookie.js",
+				"js.cookie.js",
 				"MaximizerForYouTube.user.js"
 			],
 			"run_at": "document_start"
