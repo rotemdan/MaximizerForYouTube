@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.2.1
+// @version     0.2.2
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -45,11 +45,18 @@ function installOrUninstallPlayerModIfNeeded() {
 
 						#masthead-container { visibility: hidden; opacity: 0; transition: opacity 0.2s ease-in-out; }
 
-						#player-theater-container { height: 100vh !important; min-height: 0vh !important; max-height: 100vh !important; }
+						#player-wide-container { height: 100vh !important; min-height: 0vh !important; max-height: 100vh !important; }
 
 						:focus { outline: 0; }
 
 						#movie_player { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+						/*
+						body {
+							scrollbar-width: 10px;
+							scrollbar-color: #000000;
+						}
+						*/
 
 						body::-webkit-scrollbar {
 							width: 10px;
@@ -340,7 +347,7 @@ function onDocumentEnd() {
 	installTopBarAutohide();
 	installPlayerInputAutoFocus();
 	installPlayerKeyboardShortcutExtensions();
-	ensureExpandedVideoDescription();
+	//ensureExpandedVideoDescription();
 }
 
 function onWindowLoad() {
