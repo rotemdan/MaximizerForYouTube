@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.2.3
+// @version     0.2.4
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -229,7 +229,11 @@ function hideSPFLoadingBar() {
 function ensurePlayerAutoPause() {
 	const videoPlayer = getVideoPlayer();
 
-	if (videoPlayer.length > 0 && !videoPlayer.hasClass("MaximizerForYouTube_Modded_Autopause")) {
+	if (videoPlayer.length > 0 &&
+		!videoPlayer.hasClass("MaximizerForYouTube_Modded_Autopause") &&
+		!inHomePage() &&
+		!inFeedPage() &&
+		!inSearchPage()) {
 		// Generate a random script instance ID
 		const instanceID = Math.random().toString();
 
@@ -311,6 +315,18 @@ function topBarIsVisible() {
 
 function inWatchPage() {
 	return location.href.indexOf("https://www.youtube.com/watch?") === 0;
+}
+
+function inSearchPage() {
+	return location.href.indexOf("https://www.youtube.com/results?") === 0;
+}
+
+function inFeedPage() {
+	return location.href.indexOf("https://www.youtube.com/feed") === 0;
+}
+
+function inHomePage() {
+	return location.href == "https://www.youtube.com";
 }
 
 function theaterModeEnabled() {
