@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.2.4
+// @version     0.2.5
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -45,7 +45,7 @@ function installOrUninstallPlayerModIfNeeded() {
 
 						#masthead-container { visibility: hidden; opacity: 0; transition: opacity 0.2s ease-in-out; }
 
-						#player-wide-container, #player-full-bleed-container { height: 100vh !important; min-height: 0vh !important; max-height: 100vh !important; }
+						#full-bleed-container { height: 100vh !important; min-height: 0vh !important; max-height: 100vh !important; }
 
 						:focus { outline: 0; }
 
