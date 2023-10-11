@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.2.6
+// @version     0.2.7
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -314,19 +314,23 @@ function topBarIsVisible() {
 }
 
 function inWatchPage() {
-	return location.href.indexOf("https://www.youtube.com/watch?") === 0;
+	return locationPathname() == '/watch'
 }
 
 function inSearchPage() {
-	return location.href.indexOf("https://www.youtube.com/results?") === 0;
+	return locationPathname().startsWith('/results')
 }
 
 function inFeedPage() {
-	return location.href.indexOf("https://www.youtube.com/feed") === 0;
+	return locationPathname().startsWith('/feed')
 }
 
 function inHomePage() {
-	return location.href == "https://www.youtube.com/";
+	return locationPathname() == '/'
+}
+
+function locationPathname() {
+	return (new URL(location.href)).pathname
 }
 
 function theaterModeEnabled() {
