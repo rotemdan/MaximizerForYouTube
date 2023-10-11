@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.2.5
+// @version     0.2.6
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -326,7 +326,7 @@ function inFeedPage() {
 }
 
 function inHomePage() {
-	return location.href == "https://www.youtube.com";
+	return location.href == "https://www.youtube.com/";
 }
 
 function theaterModeEnabled() {
