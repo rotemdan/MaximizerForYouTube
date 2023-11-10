@@ -4,7 +4,7 @@
 // @license     MIT
 // @author      Rotem Dan <rotemdan@gmail.com>
 // @match       https://www.youtube.com/*
-// @version     0.2.7
+// @version     0.2.8
 // @run-at      document-start
 // @grant       none
 // @namespace   https://github.com/rotemdan
@@ -187,7 +187,7 @@ function installPlayerKeyboardShortcutExtensions() {
 // Expands video description
 function ensureExpandedVideoDescription() {
 	setInterval(() => {
-		$("ytd-expander.description, ytd-expander.ytd-video-secondary-info-renderer").removeAttr("collapsed")
+		$("tp-yt-paper-button#expand").click()
 	}, 50);
 }
 
@@ -367,7 +367,7 @@ function onDocumentEnd() {
 	installTopBarAutohide();
 	installPlayerInputAutoFocus();
 	installPlayerKeyboardShortcutExtensions();
-	//ensureExpandedVideoDescription();
+	ensureExpandedVideoDescription();
 }
 
 function onWindowLoad() {
